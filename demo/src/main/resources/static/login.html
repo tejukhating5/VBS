@@ -5,190 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Banking System - Login</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0e27;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px 0;
         }
-
+        body::before {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.2) 0%, transparent 50%);
+            z-index: -2;
+        }
+        .grid-background {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px; animation: gridMove 20s linear infinite;
+            perspective: 1000px; transform: rotateX(60deg); z-index: -1;
+        }
+        @keyframes gridMove { 0% { transform: translateY(0) rotateX(60deg); } 100% { transform: translateY(50px) rotateX(60deg); } }
         .container {
-            width: 90%;
-            max-width: 450px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            width: 90%; max-width: 500px; background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(40px); border-radius: 32px;
+            box-shadow: 0 0 80px rgba(99, 102, 241, 0.3), 0 0 0 1px rgba(99, 102, 241, 0.3);
+            overflow: hidden; position: relative; z-index: 1;
         }
-
+        .container-lg { max-width: 1100px; }
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px;
-            text-align: center;
-            color: white;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+            padding: 40px; text-align: center; border-bottom: 1px solid rgba(99, 102, 241, 0.3);
         }
-
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .content {
-            padding: 40px 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .link {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .link a:hover {
-            text-decoration: underline;
-        }
-
-        .message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .message.show {
-            display: block;
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 25px;
-            text-align: center;
-        }
+        .header h1 { font-size: 42px; letter-spacing: 6px; background: linear-gradient(135deg, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .content { padding: 40px; }
+        h2 { color: #fff; text-align: center; margin-bottom: 30px; }
+        .form-group { margin-bottom: 24px; }
+        .form-group label { color: #a5b4fc; font-size: 13px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+        input, select { width: 100%; padding: 16px; border: 2px solid rgba(99, 102, 241, 0.3); border-radius: 16px; background: rgba(30, 41, 59, 0.6); color: #fff; }
+        input:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 30px rgba(99, 102, 241, 0.3); }
+        .btn { width: 100%; padding: 18px; border: none; border-radius: 16px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-weight: 700; cursor: pointer; transition: 0.4s; text-transform: uppercase; }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 0 50px rgba(99, 102, 241, 0.6); }
+        .link { text-align: center; margin-top: 25px; color: #94a3b8; font-size: 14px; }
+        .link a { color: #a5b4fc; cursor: pointer; text-decoration: none; font-weight: 600; }
+        .message { padding: 16px; border-radius: 16px; margin-bottom: 28px; display: none; border: 1px solid; }
+        .message.success { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.4); }
+        .message.error { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border-color: rgba(239, 68, 68, 0.4); }
+        .message.show { display: block; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+        th { color: #a5b4fc; padding: 15px; text-align: left; text-transform: uppercase; font-size: 12px; }
+        tr { background: rgba(30, 41, 59, 0.4); transition: 0.3s; }
+        tr:hover { background: rgba(99, 102, 241, 0.15); transform: scale(1.01); }
+        td { padding: 15px; color: #fff; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-content { background: #0f172a; padding: 40px; border-radius: 24px; border: 1px solid #6366f1; max-width: 450px; width: 90%; }
     </style>
 </head>
 <body>
+<div class="grid-background"></div>
 <div class="container">
-    <div class="header">
-        <h1>VBS</h1>
-        <p>Virtual Banking System</p>
-    </div>
-
+    <div class="header"><h1>VBS</h1><p>Virtual Banking System</p></div>
     <div class="content">
         <h2>Login</h2>
-
         <div id="loginMessage" class="message"></div>
-
         <form id="loginForm">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" id="loginUsername" required>
-            </div>
-
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="loginPassword" required>
-            </div>
-
-            <div class="form-group">
-                <label>Role</label>
+            <div class="form-group"><label>Username</label><input type="text" id="loginUsername" required></div>
+            <div class="form-group"><label>Password</label><input type="password" id="loginPassword" required></div>
+            <div class="form-group"><label>Role</label>
                 <select id="loginRole" required>
                     <option value="">Select Role</option>
                     <option value="customer">Customer</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
-
             <button type="submit" class="btn">Login</button>
         </form>
-
-        <div class="link">
-            Don't have an account? <a onclick="window.location.href='signup.html'">Sign Up</a>
-        </div>
-        <div class="link">
-            <a onclick="window.location.href='home.html'">← Back to Home</a>
-        </div>
+        <div class="link">Don't have an account? <a onclick="window.location.href='signup.html'">Sign Up</a></div>
     </div>
 </div>
-
 <script>
     const API_URL = 'http://localhost:8081';
 
@@ -222,18 +121,18 @@
                 showMessage('loginMessage', 'Login successful! Redirecting...', 'success');
 
                 localStorage.clear();
-localStorage.setItem("userId", result);
+  localStorage.setItem("userId", result);
 
-const role = loginData.role.trim().toLowerCase();
-localStorage.setItem("role", role);
+  const role = loginData.role.trim().toLowerCase();
+  localStorage.setItem("role", role);
 
-setTimeout(() => {
-if (role === "admin") {
+  setTimeout(() => {
+  if (role === "admin") {
     window.location.href = `admin.html?id=${result}`;
-} else {
+  } else {
     window.location.href = `dashboard.html?id=${result}`;
-}
-}, 800);
+  }
+  }, 800);
 
             } else {
                 showMessage('loginMessage', result, 'error');

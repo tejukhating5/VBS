@@ -3,203 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Banking System - Sign Up</title>
+    <title>VBS - Sign Up</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Shared Core Theme Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0e27;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px 0;
         }
+        body::before {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.2) 0%, transparent 50%);
+            z-index: -2;
+        }
+        .grid-background {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px; animation: gridMove 20s linear infinite;
+            perspective: 1000px; transform: rotateX(60deg); z-index: -1;
+        }
+        @keyframes gridMove { 0% { transform: translateY(0) rotateX(60deg); } 100% { transform: translateY(50px) rotateX(60deg); } }
 
         .container {
-            width: 90%;
-            max-width: 450px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            width: 90%; max-width: 480px; background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(40px); border-radius: 32px;
+            box-shadow: 0 0 80px rgba(99, 102, 241, 0.3), 0 0 0 1px rgba(99, 102, 241, 0.3);
+            overflow: hidden; position: relative; z-index: 1;
         }
-
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px;
-            text-align: center;
-            color: white;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+            padding: 40px; text-align: center; border-bottom: 1px solid rgba(99, 102, 241, 0.3);
         }
+        .header h1 { font-size: 42px; letter-spacing: 6px; font-weight: 800; background: linear-gradient(135deg, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header p { font-size: 13px; color: #a5b4fc; letter-spacing: 3px; text-transform: uppercase; margin-top: 5px;}
 
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
+        .content { padding: 40px; }
+        h2 { color: #fff; text-align: center; margin-bottom: 30px; background: linear-gradient(135deg, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 28px; }
 
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 10px; color: #a5b4fc; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; }
+        input, select {
+            width: 100%; padding: 14px 18px; border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px; background: rgba(30, 41, 59, 0.6); color: #fff;
+            font-size: 15px; transition: 0.4s ease;
         }
-
-        .content {
-            padding: 40px 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
+        input:focus, select:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 30px rgba(99, 102, 241, 0.3); background: rgba(51, 65, 85, 0.8); }
 
         .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            width: 100%; padding: 18px; border: none; border-radius: 16px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;
+            font-weight: 700; cursor: pointer; transition: 0.4s;
+            text-transform: uppercase; letter-spacing: 1.5px; margin-top: 15px;
         }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 0 50px rgba(99, 102, 241, 0.6); }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
+        .link { text-align: center; margin-top: 25px; color: #94a3b8; font-size: 14px; }
+        .link a { color: #a5b4fc; cursor: pointer; text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .link a:hover { color: #6366f1; text-shadow: 0 0 10px rgba(99, 102, 241, 0.5); }
 
-        .link {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
-        }
+        .message { padding: 16px; border-radius: 16px; margin-bottom: 28px; display: none; font-size: 14px; border: 1px solid; animation: slideDown 0.4s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+        .message.success { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.4); }
+        .message.error { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border-color: rgba(239, 68, 68, 0.4); }
+        .message.show { display: block; }
 
-        .link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .link a:hover {
-            text-decoration: underline;
-        }
-
-        .message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .message.show {
-            display: block;
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 25px;
-            text-align: center;
-        }
+        /* Style for Select Dropdown arrow */
+        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>VBS</h1>
-            <p>Virtual Banking System</p>
-        </div>
-
-        <div class="content">
-            <h2>Sign Up</h2>
-            
-            <div id="signupMessage" class="message"></div>
-
-            <form id="signupForm">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="signupName" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="signupUsername" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="signupEmail" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="signupPassword" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Role</label>
-                    <select id="signupRole" required>
-                        <option value="">Select Role</option>
-                        <option value="customer">Customer</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn">Create Account</button>
-            </form>
-
-            <div class="link">
-                Already have an account? <a onclick="window.location.href='login.html'">Login</a>
-            </div>
-            <div class="link">
-                <a onclick="window.location.href='home.html'">← Back to Home</a>
-            </div>
-        </div>
+<div class="grid-background"></div>
+<div class="container">
+    <div class="header">
+        <h1>VBS</h1>
+        <p>Virtual Banking System</p>
     </div>
 
-    <script>
+    <div class="content">
+        <h2>Sign Up</h2>
+
+        <div id="signupMessage" class="message"></div>
+
+        <form id="signupForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="signupName" required>
+            </div>
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="signupUsername" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="signupEmail" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="signupPassword" required>
+            </div>
+
+            <div class="form-group">
+                <label>Role</label>
+                <select id="signupRole" required>
+                    <option value="">Select Role</option>
+                    <option value="customer">Customer</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Create Account</button>
+        </form>
+
+        <div class="link">
+            Already have an account? <a onclick="window.location.href='login.html'">Login</a>
+        </div>
+        <div class="link">
+            <a onclick="window.location.href='home.html'">← Back to Home</a>
+        </div>
+    </div>
+</div>
+
+<script>
     const showMessage = (id, text, type) => {
         const msg = document.getElementById(id);
         msg.innerText = text;
@@ -234,8 +170,9 @@
                     "Account created successfully! Please login.",
                     "success"
                 );
-
-                window.location.href = "login.html";
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1500);
             } else {
                 showMessage("signupMessage", result, "error");
             }
@@ -250,6 +187,5 @@
         });
     });
 </script>
-
 </body>
 </html>

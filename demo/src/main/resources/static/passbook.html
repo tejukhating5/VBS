@@ -2,167 +2,245 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-        <html lang="en">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Passbook - Virtual Banking System</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passbook - Virtual Banking System</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body{
-            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-            min-height:100vh;
-            padding:20px
-        }
-
-        .container{
-            max-width:1000px;
-            margin:auto;
-            background:#fff;
-            border-radius:16px;
-            box-shadow:0 20px 60px rgba(0,0,0,.3);
-            overflow:hidden
-        }
-
-        .header{
-            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-            padding:30px;
-            color:#fff;
-            display:flex;
-            justify-content:space-between;
-            align-items:center
-        }
-
-        .header-left h1{font-size:28px}
-        .header-left p{font-size:14px;opacity:.9}
-
-        .btn-header{
-            padding:10px 20px;
-            border:2px solid #fff;
-            background:rgba(255,255,255,.2);
-            color:#fff;
-            border-radius:8px;
-            cursor:pointer;
-            font-weight:600;
-            text-decoration:none;
-            transition:.3s
-        }
-
-        .btn-header:hover{background:#fff;color:#667eea}
-
-        .content{padding:40px 30px}
-
-        .passbook-header{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            margin-bottom:30px
-        }
-
-        .balance-card{
-            background:linear-gradient(135deg,#667eea,#764ba2);
-            color:#fff;
-            padding:20px 30px;
-            border-radius:10px
-        }
-
-        .balance-card .amount{font-size:28px;font-weight:700}
-
-        .transactions-section{
-            background:#f8f9fa;
-            padding:30px;
-            border-radius:12px
-        }
-
-        .transactions-list{display:flex;flex-direction:column;gap:10px}
-
-        .transaction-item{
-            background:#fff;
-            padding:18px;
-            border-radius:10px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            border-left:5px solid #667eea;
-            box-shadow:0 2px 8px rgba(0,0,0,.05)
-        }
-
-        .transaction-item.deposit{border-left-color:#43e97b}
-        .transaction-item.withdrawal{border-left-color:#f5576c}
-        .transaction-item.transfer{border-left-color:#4facfe}
-
-        .transaction-info{display:flex;gap:15px;align-items:center}
-
-        .transaction-icon{
-            width:45px;height:45px;
-            border-radius:50%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:22px
-        }
-
-        .deposit .transaction-icon{background:#d4f8e8;color:#43e97b}
-        .withdrawal .transaction-icon{background:#fde0e5;color:#f5576c}
-        .transfer .transaction-icon{background:#d4e7ff;color:#4facfe}
-
-        .transaction-details .type{font-weight:600;color:#333}
-        .transaction-details .date{font-size:12px;color:#999}
-
-        .transaction-right{text-align:right}
-
-        .transaction-amount{font-size:16px;font-weight:700}
-        .deposit .transaction-amount{color:#43e97b}
-        .withdrawal .transaction-amount{color:#f5576c}
-        .transfer .transaction-amount{color:#4facfe}
-
-        .balance-display{font-size:12px;color:#999}
-
-        .pagination{
-            margin-top:20px;
-            display:flex;
-            justify-content:center;
-            gap:10px
-        }
-
-        .pagination button{
-            padding:8px 12px;
-            border:1px solid #ddd;
-            border-radius:6px;
-            cursor:pointer
-        }
-
-        .pagination .active{
-            background:#667eea;
-            color:#fff;
-            border-color:#667eea
-        }
-        .header > div {
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0e27;
+            min-height: 100vh;
             display: flex;
-            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px 0;
         }
 
-        .btn-header{
-            min-width: 130px;
-            height: 42px;
+        /* Animated Background Elements */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.2) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+            z-index: -2;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .grid-background {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            perspective: 1000px;
+            transform: rotateX(60deg);
+            z-index: -1;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0) rotateX(60deg); }
+            100% { transform: translateY(50px) rotateX(60deg); }
+        }
+
+        /* Container & Glassmorphism */
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(40px);
+            border-radius: 32px;
+            box-shadow: 0 0 80px rgba(99, 102, 241, 0.3), 0 0 0 1px rgba(99, 102, 241, 0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header div { display: flex; gap: 10px; }
+
+        .btn-header {
+            padding: 10px 20px;
+            background: rgba(30, 41, 59, 0.6);
+            color: #a5b4fc;
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            min-width: 130px;
         }
 
+        .btn-header:hover {
+            background: #6366f1;
+            color: white;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
 
-        .message{display:none;margin-bottom:20px}
-        .message.show{display:block}
+        .content { padding: 40px; }
+
+        .passbook-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .passbook-header h2 {
+            color: #fff;
+            font-size: 28px;
+            background: linear-gradient(135deg, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Balance Card */
+        .balance-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #fff;
+            padding: 20px 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .balance-card p { color: #a5b4fc; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+        .balance-card .amount {
+            font-size: 32px;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Transaction List */
+        .transactions-section {
+            background: rgba(30, 41, 59, 0.4);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .transactions-list { display: flex; flex-direction: column; gap: 12px; }
+
+        .transaction-item {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 18px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .transaction-item:hover {
+            transform: scale(1.01);
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .transaction-item.deposit { border-left: 5px solid #43e97b; }
+        .transaction-item.withdrawal { border-left: 5px solid #f5576c; }
+        .transaction-item.transfer { border-left: 5px solid #4facfe; }
+
+        .transaction-info { display: flex; gap: 15px; align-items: center; }
+
+        .transaction-icon {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .deposit .transaction-icon { background: rgba(67, 233, 123, 0.1); color: #43e97b; }
+        .withdrawal .transaction-icon { background: rgba(245, 87, 108, 0.1); color: #f5576c; }
+        .transfer .transaction-icon { background: rgba(79, 172, 254, 0.1); color: #4facfe; }
+
+        .transaction-details .type { font-weight: 600; color: #fff; font-size: 15px; }
+        .transaction-details .date { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+
+        .transaction-right { text-align: right; }
+
+        .transaction-amount { font-size: 17px; font-weight: 700; }
+        .deposit .transaction-amount { color: #43e97b; }
+        .withdrawal .transaction-amount { color: #f5576c; }
+        .transfer .transaction-amount { color: #4facfe; }
+
+        .balance-display { font-size: 12px; color: #64748b; margin-top: 4px; }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pagination button {
+            padding: 10px 16px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .pagination .active {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .pagination button:hover:not(.active) {
+            background: rgba(99, 102, 241, 0.2);
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .passbook-header { flex-direction: column; text-align: center; }
+            .transaction-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .transaction-right { text-align: left; }
+        }
     </style>
 </head>
-
 <body>
+<div class="grid-background"></div>
 <div class="container">
-
     <div class="header">
         <div class="header-left">
             <h1>VBS</h1>
@@ -174,7 +252,6 @@
     </div>
 
     <div class="content">
-
         <div class="passbook-header">
             <h2>Your Passbook</h2>
             <div class="balance-card">
@@ -187,7 +264,6 @@
             <div id="transactionsList" class="transactions-list"></div>
             <div id="paginationControls" class="pagination"></div>
         </div>
-
     </div>
 </div>
 
@@ -271,11 +347,5 @@
         loadPassbook();
     }
 </script>
-</body>
-</html>
-</title>
-</head>
-<body>
-
 </body>
 </html>
